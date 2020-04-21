@@ -1,0 +1,190 @@
+<h1 id="tableLabel">Weather forecast</h1>
+
+<p>This component demonstrates fetching data from the server.</p>
+
+
+<input type="button" (click)="checkFields()" value="Check fields" />
+<input type="button" (click)="generateSheets()" value="Generate Exel sheets" />
+AddEmploye
+<table class='table table-striped' aria-labelledby="tableLabel">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Departament Id</th>
+      <th>Qualification</th>
+      <th>Money profit</th>
+      <th>Premials</th>
+      <th>Month</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><input type="text" [(ngModel)]="employe.EmployeFullName" class="form-control" /></td>
+      <td><input type="text" [(ngModel)]="employe.DepartamentId" class="form-control" /></td>
+      <td><input type="text" [(ngModel)]="employe.Qualification" class="form-control" /></td>
+      <td><input type="text" [(ngModel)]="employe.MoneyProfit" class="form-control" /></td>
+      <td><input type="text" [(ngModel)]="employe.Premials" class="form-control" /></td>
+      <td><input type="text" [(ngModel)]="employe.Month" class="form-control" /></td>
+      <td><input type="button" (click)="addEmploye()" value="Add" /></td>
+    </tr>
+  </tbody>
+</table>
+
+Add Organization
+<table class='table table-striped' aria-labelledby="tableLabel">
+  <thead>
+    <tr>
+      <th>Country code</th>
+      <th>Sity</th>
+      <th>Adress</th>
+      <th>Phone</th>
+      <th>Email</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><input type="text" [(ngModel)]="organization.CountryCode" class="form-control" /></td>
+      <td><input type="text" [(ngModel)]="organization.Sity" class="form-control" /></td>
+      <td><input type="text" [(ngModel)]="organization.Adress" class="form-control" /></td>
+      <td><input type="text" [(ngModel)]="organization.Phone" class="form-control" /></td>
+      <td><input type="text" [(ngModel)]="organization.Email" class="form-control" /></td>
+      <td><input type="button" (click)="addOrganization()" value="Add" /></td>
+    </tr>
+  </tbody>
+</table>
+
+AddSupply
+<table class='table table-striped' aria-labelledby="tableLabel">
+  <thead>
+    <tr>
+      <th>Hardware Type</th>
+      <th>Users Review</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><input type="text" [(ngModel)]="supply.HardwareType" class="form-control" /></td>
+      <td><input type="text" [(ngModel)]="supply.usersReview" class="form-control" /></td>
+      <td><input type="button" (click)="addSupply()" value="Add" /></td>
+    </tr>
+  </tbody>
+</table>
+
+<!--supply ID
+<input type="text" [(ngModel)]="supplyContract.SupplyId" class="form-control" />
+contract Id
+<input type="text" [(ngModel)]="supplyContract.ContractId" class="form-control" />-->
+<input type="button" (click)="addSupplyContract()" value="Supply - Contract link" />
+<!--upply ID
+<input type="text" [(ngModel)]="supplyOrganization.SupplyId" class="form-control" />
+organization Id
+<input type="text" [(ngModel)]="supplyOrganization.OrganizationId" class="form-control" />-->
+<input type="button" (click)="addSupplyOrganization()" value="Supply - Organization link" />
+<!--contract ID
+<input type="text" [(ngModel)]="contractEmploye.ContractId" class="form-control" />
+employe Id
+<input type="text" [(ngModel)]="contractEmploye.EmployeId" class="form-control" />-->
+<input type="button" (click)="addContractEmploye()" value="Contract - Employe link" />
+
+
+<p></p>Employers
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="employers">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Employe Id</th>
+      <th>Departament Id</th>
+      <th>Employe's name</th>
+      <th>Qualification</th>
+      <th>Money revard</th>
+      <th>Premials</th>
+      <th>Month</th>
+      <th>Contracts in progress</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let _employe of employers">
+      <td><input type="button" (click)="contractEmploye.employeId = _employe.id" *ngIf="_employe" value="{{_employe.id}}"></td>
+      <td>{{ _employe.id }}</td>
+      <td>{{ _employe.departamentId }}</td>
+      <td>{{ _employe.employeFullName }}</td>
+      <td>{{ _employe.qualification }}</td>
+      <td>{{ _employe.moneyProfit }}</td>
+      <td>{{ _employe.premials }}</td>
+      <td>{{ _employe.month }}</td>
+      <td>{{ _employe.contractsCount }}</td>
+    </tr>
+  </tbody>
+</table>
+
+Contracts
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="contracts">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Contract Id</th>
+      <th>Employe Id</th>
+      <th>Supply identification code</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let _contract of contracts">
+      <td><input type="button" (click)="sendContractId(_contract.id)" *ngIf="!_contract.employeId" value="{{_contract.id}}" /></td>
+      <td>{{_contract.id}}</td>
+      <td>{{_contract.employeId}}</td>
+      <td>{{_contract.supplyId}}</td>
+    </tr>
+  </tbody>
+</table>
+
+Supplies
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="supplies">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Supply Id</th>
+      <th>Contract identificator</th>
+      <th>Organizations subscribe for supply(count)</th>
+      <th>Hardware type</th>
+      <th>Users review(if exist)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let _supply of supplies">
+      <td><input type="button" (click)="sendSupplyId(_supply.id)" *ngIf="_supply" value="{{_supply.id}}" /></td>
+      <td>{{_supply.id}}</td>
+      <td>{{_supply.contractId}}</td>
+      <td>{{_supply.organizationsCount}}</td>
+      <td>{{_supply.hardwareType}}</td>
+      <td>{{_supply.usersReview}}</td>
+    </tr>
+  </tbody>
+</table>
+
+Organizations
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="organizations">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Organization Id</th>
+      <th>Supply code</th>
+      <th>Country code</th>
+      <th>Sity</th>
+      <th>Adress</th>
+      <th>Phone number</th>
+      <th>Email</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let _organization of organizations">
+      <td><input type="button" (click)="supplyOrganization.organizationId = _organization.id" *ngIf="!_organization.supplyId" value="{{_organization.id}}" /></td>
+      <td>{{_organization.id}}</td>
+      <td>{{_organization.supplyId}}</td>
+      <td>{{_organization.countryCode}}</td>
+      <td>{{_organization.sity}}</td>
+      <td>{{_organization.adress}}</td>
+      <td>{{_organization.phone}}</td>
+      <td>{{_organization.email}}</td>
+    </tr>
+  </tbody>
+</table>
